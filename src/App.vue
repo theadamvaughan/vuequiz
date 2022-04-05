@@ -1,17 +1,19 @@
 /* eslint-disable vue/multi-word-component-names */
 <template>
   <div class="ctr">
-    <!-- set startedQuiz under data to true to skip starter page -->
-    <starter v-if="startedQuiz==false"
-    @startQuiz="startedQuiz"
-    />
-    <!-- If the number of questions answered is less than the number of questions available, show the questions component, otherwise show results -->
-    <questions v-else-if="questionsAnswered < questions.length" 
-    :questions="questions"
-    :questionsAnswered="questionsAnswered"
-    @question-answered="questionAnswered"
-    />
-    <result v-else :results="results" :totalCorrect="totalCorrect" :totalQuestions="questionsAnswered"/>
+    <transition name="fade" mode="out-in">
+      <!-- set startedQuiz under data to true to skip starter page -->
+      <starter v-if="startedQuiz==false"
+      @startQuiz="startedQuiz"
+      />
+      <!-- If the number of questions answered is less than the number of questions available, show the questions component, otherwise show results -->
+      <questions v-else-if="questionsAnswered < questions.length" 
+      :questions="questions"
+      :questionsAnswered="questionsAnswered"
+      @question-answered="questionAnswered"
+      />
+      <result v-else :results="results" :totalCorrect="totalCorrect" :totalQuestions="questionsAnswered"/>
+    </transition>
     <div>
       <button 
       type="button" 
